@@ -3,6 +3,7 @@ package org.example.controller;
 import org.example.Enums;
 import org.example.model.PlantDatasheet;
 import org.example.model.VegetableDatasheet;
+import org.example.model.VegetableDatasheetBuilder;
 import org.example.repository.PlantDatasheetRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,15 @@ import java.util.List;
 public class PlantDatasheetController {
     private final PlantDatasheetRepository plantDatasheetRepository;
 
+    public static class VegetableDatasheetRequest {
+        public String plantName;
+        public String type;
+        public Float idealPH;
+        public Float idealEC;
+        public Integer averageDaysToGerminate;
+        public Integer averageDaysToMorphogenesis;
+        public byte[] image;
+    }
 
     public PlantDatasheetController(PlantDatasheetRepository plantDatasheetRepository)
     {
@@ -36,9 +46,19 @@ public class PlantDatasheetController {
     }
 
     @PostMapping
-    public ResponseEntity<PlantDatasheet> postNewPlantDatasheet(@RequestBody PlantDatasheet plantDatasheet)
+    public ResponseEntity<PlantDatasheet> postNewPlantDatasheet(@RequestBody VegetableDatasheetRequest req)
     {
-        PlantDatasheet saved = plantDatasheetRepository.save(plantDatasheet);
+        VegetableDatasheet veg = new VegetableDatasheetBuilder()
+                .withName(req.plantName)
+                .withVegetableType(Enums.VegetableType.valueOf(req.type))
+                .withIdealEC(req.idealEC)
+                .withIdealPH(req.idealPH)
+                .withDaysToGerminate(req.averageDaysToGerminate)
+                .withDaysToMorphogenesis(req.averageDaysToMorphogenesis)
+                .withImage(req.image)
+                .build();
+
+        PlantDatasheet saved = plantDatasheetRepository.save(veg);
         return ResponseEntity.status(201).body(saved);
     }
 

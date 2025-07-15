@@ -67,7 +67,7 @@ public abstract class PlantDatasheet {
         this.name = name;
     }
 
-    public void setImage(byte[] image)
+    public void setPlantImage(byte[] image)
     {
         this.image = image;
     }

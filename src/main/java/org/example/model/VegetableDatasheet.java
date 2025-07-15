@@ -8,7 +8,7 @@ import org.example.Enums.VegetableType;
 public class VegetableDatasheet extends PlantDatasheet {
 
     @Enumerated(EnumType.STRING)
-    private VegetableType type;
+    private VegetableType vegetableType;
     private Float idealEC;
     private Float idealPH;
     private int averageDaysToGerminate;
@@ -19,20 +19,10 @@ public class VegetableDatasheet extends PlantDatasheet {
         super(PlantType.VEGETABLE);
     }
 
-    public VegetableDatasheet(VegetableType type, String name, Float idealEC, Float idealPH, int averageDaysToGerminate, int averageDaysToMorphogenesis, byte[] image) {
-        super(PlantType.VEGETABLE);
-        this.type = type;
-        this.setPlantName(name);
-        this.idealEC = idealEC;
-        this.idealPH = idealPH;
-        this.averageDaysToGerminate = averageDaysToGerminate;
-        this.averageDaysToMorphogenesis = averageDaysToMorphogenesis;
-        this.setImage(image);
-    }
-
-    public VegetableType getType()
+    //getters
+    public VegetableType getVegetableType()
     {
-        return this.type;
+        return this.vegetableType;
     }
 
     public Float getIdealEC() {
@@ -53,9 +43,10 @@ public class VegetableDatasheet extends PlantDatasheet {
         return averageDaysToMorphogenesis;
     }
 
-    public void setType(VegetableType type)
+    //setters
+    public void setVegetableType(VegetableType vegetableType)
     {
-        this.type = type;
+        this.vegetableType = vegetableType;
     }
 
     public void setIdealEC(Float idealEC)
